@@ -1,0 +1,16 @@
+.show {
+    position: absolute;
+    z-index: 23;
+    display: flex;
+    justify-content: end;
+    transform: scale(0.5);
+    transform-origin: top right;
+    margin: -10px -80px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.hide {
+    transform: scale(0);
+    transform-origin: top right;
+}
