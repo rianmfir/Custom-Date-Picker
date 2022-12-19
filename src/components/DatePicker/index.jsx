@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import './datePicker.css';
 import { MdNavigateBefore, MdNavigateNext, } from "react-icons/md";
@@ -18,7 +19,7 @@ const DatePicker = (props) => {
     const renderCalendar = `${months[currMonth]} ${currYear}`;
 
     const prevDateOfMonth = () => {
-
+        // let index = 0;
         let filtered = data.filter((str) => {
             return str.includes(
                 currMonth <= 0 && currYear
@@ -30,26 +31,38 @@ const DatePicker = (props) => {
         let index = filtered.length - 1;
         for (let i = fisrstDayOfMonth; i > 0; i--) {
             let isSchedule = "";
+            // let dates = new Date(`
+            // ${[(currMonth <= 0 && currYear) ? 12 : currMonth]}
+            // /${lastDateOfLastMonth - i + 1}
+            // /${[(currMonth <= 0 && currYear) ? currYear - 1 : currYear]}`);
+
             let dates = new Date(`
             ${[(currMonth <= 0 && currYear) ? 12 : currMonth]}
-            /${lastDateOfLastMonth - i + 1}
+            /${lastDateOfLastMonth + i - fisrstDayOfMonth}
             /${[(currMonth <= 0 && currYear) ? currYear - 1 : currYear]}`);
 
             let dayName = dates.toLocaleDateString("id", { weekday: "long" })
             let monthName = dates.toLocaleDateString("id", { month: "long" })
 
+            // let prevMonth = currMonth <= 0 && currYear
+            //     ? `${dayName}, ${lastDateOfLastMonth - i + 1} ${monthName} ${currYear - 1}`
+            //     : `${dayName}, ${lastDateOfLastMonth - i + 1} ${monthName} ${currYear}`;
+
             let prevMonth = currMonth <= 0 && currYear
-                ? `${dayName}, ${lastDateOfLastMonth - i + 1} ${monthName} ${currYear - 1}`
-                : `${dayName}, ${lastDateOfLastMonth - i + 1} ${monthName} ${currYear}`;
+                ? `${dayName}, ${lastDateOfLastMonth + i - fisrstDayOfMonth} ${monthName} ${currYear - 1}`
+                : `${dayName}, ${lastDateOfLastMonth + i - fisrstDayOfMonth} ${monthName} ${currYear}`;
+
+            // console.log(lastDateOfLastMonth + i - fisrstDayOfMonth);
+            console.log(`${prevMonth} === ${filtered[index]}`);
 
             if (`${prevMonth}` === filtered[index]) {
                 index--;
                 isSchedule = "active"
             }
 
-            liTag.push(<li className={`inactive ${isSchedule}`}>{lastDateOfLastMonth - i + 1}</li>);
+            liTag.push(<li key={prevMonth} className={`inactive ${isSchedule}`}>{lastDateOfLastMonth - i + 1}</li>);
         }
-        return liTag;
+        // return liTag;
     }
 
     const currDateOfMonth = () => {
@@ -70,11 +83,11 @@ const DatePicker = (props) => {
                 index++;
                 isSchedule = "active"
             }
-            liTag.push(<li className={isSchedule} onClick={() => props.handleShow(chooseDay)}>{i}</li>)
-        }
-        return liTag;
-    }
 
+            liTag.push(<li key={chooseDay} className={isSchedule} onClick={() => props.handleShow(chooseDay)}>{i}</li>)
+        }
+        // return liTag;
+    }
     const nextDateOfMonth = () => {
         let index = 0;
         let lastDay = fisrstDayOfMonth + lastDateOfMonth;
@@ -100,10 +113,9 @@ const DatePicker = (props) => {
                 index++;
                 isSchedule = "active"
             }
-            liTag.push(<li className={`inactive ${isSchedule}`}>{i - lastDay + 1}</li>);
-
+            liTag.push(<li key={nextMonth} className={`inactive ${isSchedule}`}>{i - lastDay + 1}</li>);
         }
-        return liTag;
+        // return liTag;
 
     }
 
@@ -130,6 +142,7 @@ const DatePicker = (props) => {
         }
 
     }
+
     prevDateOfMonth();
     currDateOfMonth();
     nextDateOfMonth();
@@ -146,7 +159,7 @@ const DatePicker = (props) => {
                 </header>
                 <div className="calendar">
                     <ul className="weeks">
-                        {days.map(state => <li>{state}</li>)}
+                        {days.map((state, index) => <li key={index}>{state}</li>)}
                         {/* {days} */}
                     </ul>
                     <ul className="days">

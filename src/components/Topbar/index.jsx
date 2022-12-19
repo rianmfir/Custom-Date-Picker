@@ -14,7 +14,7 @@ const Topbar = ({ show, handleShow, handleClear, selectedDate }) => {
                         <Form className="d-flex">
                             <InputGroup className="mb-3">
                                 <Form.Label style={{ color: "white", fontSize: "1.3rem" }} className="me-3">Tanggal</Form.Label>
-                                <Form.Control style={{ width: "300px" }} onClick={() => handleShow()} value={selectedDate} />
+                                <Form.Control type="text" style={{ width: "300px" }} onClick={() => handleShow()} defaultValue={selectedDate} />
                                 <Button variant="outline-warning" onClick={handleClear}>Clear</Button>
                             </InputGroup>
                         </Form>
