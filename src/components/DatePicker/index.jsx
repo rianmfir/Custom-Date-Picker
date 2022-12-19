@@ -53,7 +53,7 @@ const DatePicker = (props) => {
                 : `${dayName}, ${lastDateOfLastMonth + i - fisrstDayOfMonth} ${monthName} ${currYear}`;
 
             // console.log(lastDateOfLastMonth + i - fisrstDayOfMonth);
-            console.log(`${prevMonth} === ${filtered[index]}`);
+            // console.log(`${prevMonth} === ${filtered[index]}`);
 
             if (`${prevMonth}` === filtered[index]) {
                 index--;
